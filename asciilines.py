@@ -96,8 +96,10 @@ def parse(filename):
 def render(tvg):
     tvg.render()
 
-parser = argparse.ArgumentParser(description='Parse and render a TVG (Text Vector Graphics) file to stdout')
-parser.add_argument('filename', metavar='FILENAME', help='the TVG file to parse and render')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Parse and render a TVG (Text Vector Graphics) file to stdout')
+    parser.add_argument('filename', metavar='FILENAME', help='the TVG file to parse and render')
 
-args = parser.parse_args()
-render(parse(args.filename))
+    args = parser.parse_args()
+    render(parse(args.filename))
+
