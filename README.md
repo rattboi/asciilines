@@ -1,9 +1,9 @@
+[![Build Status](https://travis-ci.com/rattboi/asciilines.svg?branch=master)](https://travis-ci.com/rattboi/asciilines)
+
 # asciilines
 Copyright (c) 2019 Bradon Kanyid
 
-[![Build Status](https://travis-ci.com/rattboi/asciilines.svg?branch=master)](https://travis-ci.com/rattboi/asciilines)
-
-CS561 Mini-Project
+## CS561 Mini-Project
 
 This program is accepts a single .tvg file argument, which it then renders as ASCII on standard output
 
@@ -20,6 +20,14 @@ python3.7 asciilines.py tests/<testfile.tvg>
 ## Other Pertinent Information
 
 Test cases can be found in tests/
+
+## Continuous Integration
+
+run-tests.sh contains a simple script to compare the output of asciiline tests against known-good output. 
+
+Travis CI is used to auto-run these tests on every commit. 
+
+You can see the most current build / test results [here](https://travis-ci.com/rattboi/asciilines)
 
 ## License
 
