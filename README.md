@@ -1,6 +1,8 @@
 # asciilines
 Copyright (c) 2019 Bradon Kanyid
 
+[![Build Status](https://travis-ci.com/rattboi/asciilines.svg?branch=master)](https://travis-ci.com/rattboi/asciilines)
+
 CS561 Mini-Project
 
 This program is accepts a single .tvg file argument, which it then renders as ASCII on standard output
