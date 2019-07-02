@@ -4,10 +4,14 @@ import argparse
 import sys
 
 class Tvg:
-    def __init__(self, canvas_y, canvas_x):
-        self.canvas_y = int(canvas_y)
-        self.canvas_x = int(canvas_x)
+    def __init__(self):
+        self.canvas_y = 0
+        self.canvas_x = 0
         self.vectors = []
+
+    def set_dimensions(self, y, x):
+        self.canvas_y = int(y)
+        self.canvas_x = int(x)
 
     def add_vectors(self, vectors):
         for v in vectors:
@@ -47,6 +51,17 @@ class Tvg:
         # if we've gotten this far, it's probably a vector
         return True
 
+    def parse(self, filename):
+        with open(filename, "r") as tvgfile:
+            try:
+                canvas_dimensions = tvgfile.readline().split()
+                self.set_dimensions(canvas_dimensions[0], canvas_dimensions[1])
+            except IndexError as e:
+                print("ERROR: Couldn't parse canvas dimensions")
+                sys.exit(1)
+            vectors = [v.split() for v in tvgfile if Tvg.valid_vector(v.split())]
+            self.add_vectors(vectors)
+
     def render(self):
         # initialize the canvas
         canvas = []
@@ -75,31 +90,17 @@ class Tvg:
                     for y in range(row_start, row_end):
                         if (y >= 0 and y < self.canvas_y):
                             canvas[y][col] = char
-        
+
         for y in range(self.canvas_y):
             for x in range(self.canvas_x):
                 print(canvas[y][x], end = '')
             print()
 
-def parse(filename):
-    with open(filename, "r") as tvgfile:
-        try:
-            canvas_dimensions = tvgfile.readline().split()
-            tvg = Tvg(canvas_dimensions[0], canvas_dimensions[1])
-        except IndexError as e:
-            print("ERROR: Couldn't parse canvas dimensions")
-            sys.exit(1) 
-        vectors = [v.split() for v in tvgfile if Tvg.valid_vector(v.split())]
-        tvg.add_vectors(vectors)
-    return tvg
-
-def render(tvg):
-    tvg.render()
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Parse and render a TVG (Text Vector Graphics) file to stdout')
     parser.add_argument('filename', metavar='FILENAME', help='the TVG file to parse and render')
-
     args = parser.parse_args()
-    render(parse(args.filename))
 
+    tvg = Tvg()
+    tvg.parse(args.filename)
+    tvg.render()
